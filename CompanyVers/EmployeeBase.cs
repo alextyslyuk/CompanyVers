@@ -27,6 +27,10 @@ namespace CompanyVers
             set { chief = value; }
         }
 
+        public double AdditionalPercentRatePerYearsExperience { get { return GetAdditionalPercentRatePerYearsExperience(); } }
+
+        public double MaxAdditionalPercentRatePerYearsExperience { get { return GetMaxAdditionalPercentRatePerYearsExperience(); } }
+
         public EmployeeBase(string name, DateTime employmentDate, EmployeeWithSubordinates chief)
         {
             Name = name;
@@ -38,10 +42,6 @@ namespace CompanyVers
                 Chief.Subordinates.Add(this);
             }
         }
-
-        public double AdditionalPercentRatePerYearsExperience { get { return GetAdditionalPercentRatePerYearsExperience(); } }
-
-        public double MaxAdditionalPercentRatePerYearsExperience { get { return GetMaxAdditionalPercentRatePerYearsExperience(); } }
 
         protected abstract double GetAdditionalPercentRatePerYearsExperience();
 

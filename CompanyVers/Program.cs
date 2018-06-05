@@ -18,7 +18,9 @@ namespace CompanyVers
             Console.WriteLine("Manager1 additional pecent rate: " + manager1.AdditionalPercentRatePerYearsExperience);
 
             Console.WriteLine("Manager - experience: " + manager1.GetExperienceInYears(DateTime.Parse("2017-08-15")) + " salary " + manager1.GetSalary(DateTime.Parse("2017-08-15")));
+            Console.WriteLine("Manager - experience: " + manager1.GetExperienceInYears(DateTime.Now) + " salary " + manager1.GetSalary(DateTime.Now));
             Console.WriteLine("Empl1 - experience: " + empl1.GetExperienceInYears(DateTime.Now) + " salary " + empl1.GetSalary(DateTime.Now));
+            Console.WriteLine("Empl1 - experience: " + empl1.GetExperienceInYears(DateTime.Parse("2017-08-15")) + " salary " + empl1.GetSalary(DateTime.Parse("2017-08-15")));
 
             Console.WriteLine("Sale salary: " + sale.GetSalary(DateTime.Now));
 

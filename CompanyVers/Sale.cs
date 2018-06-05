@@ -13,7 +13,7 @@ namespace CompanyVers
 
         protected override double GetAdditionalPercentRatePerYearsExperience()
         {
-            return 0.3;
+            return 1;
         }
 
         protected override double GetMaxAdditionalPercentRatePerYearsExperience()
@@ -23,7 +23,7 @@ namespace CompanyVers
 
         protected override double GetAdditionalPercentRatePerSubordinate()
         {
-            return 1;
+            return 0.3;
         }
         protected override double GetSalaryRelatedSubordinatesSalarySum(DateTime observingDate)
         {

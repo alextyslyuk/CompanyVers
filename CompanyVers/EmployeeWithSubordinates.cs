@@ -10,25 +10,20 @@ namespace CompanyVers
     {
         private List<EmployeeBase> subordinates;
 
-        public List<EmployeeBase> Subordinates { get { return subordinates; } /*set { subordinates = value; }*/ }
+        public List<EmployeeBase> Subordinates { get { return subordinates; } }
 
         protected double AdditionalPercentRatePerSubordinate
             { get { return GetAdditionalPercentRatePerSubordinate(); } }
-
-        //protected double SalaryRelatedSubordinatesSalarySum
-        //    { get { return GetSalaryRelatedSubordinatesSalarySum(); } }
-
-        //protected double DirectSubordinatesSalarySum(DateTime observingDate)
-        //    { return GetDirectSubordinatesSalarySum(observingDate); }
-
-        //protected double AllLevelSubordinatesSalarySum
-        //    { get { return GetAllLevelSubordinatesSalarySum(); } }
 
         public EmployeeWithSubordinates(string name, DateTime employmentDate, EmployeeWithSubordinates chief)
             : base(name, employmentDate, chief)
         {
             subordinates = new List<EmployeeBase>();
         }
+
+        protected abstract double GetSalaryRelatedSubordinatesSalarySum(DateTime observingDate);
+
+        protected abstract double GetAdditionalPercentRatePerSubordinate();
 
         protected double GetDirectSubordinatesSalarySum(DateTime observingDate)
         {
@@ -64,10 +59,6 @@ namespace CompanyVers
 
             return wholeSalary;
         }
-
-        protected abstract double GetSalaryRelatedSubordinatesSalarySum(DateTime observingDate);
-
-        protected abstract double GetAdditionalPercentRatePerSubordinate();
 
         public override double GetSalary(DateTime observingDate)
         {

@@ -10,6 +10,7 @@ namespace CompanyVers
     {
         public Manager(string name, DateTime employmentDate, EmployeeWithSubordinates chief)
             : base(name, employmentDate, chief) { }
+
         protected override double GetAdditionalPercentRatePerYearsExperience()
         {
             return 5;
