@@ -9,6 +9,7 @@ namespace CompanyVers.Tests
         [TestMethod]
         public void GetSalaryForEmployeeWith5YearsWxperience()
         {
+
         }
     }
 }

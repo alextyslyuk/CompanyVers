@@ -22,7 +22,7 @@ namespace CompanyVers
             Console.WriteLine("Manager1 experience: " + manager1.AdditionalPercentRatePerYearsExperience);
             Console.WriteLine("Empl2 " + ":" + empl2.ExperienceInYears + " salary " + empl2.Salary);
 
-            Console.Read();
+            Console.ReadKey();
 
 
         }

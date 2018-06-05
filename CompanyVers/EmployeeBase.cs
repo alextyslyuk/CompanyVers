@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace CompanyVers
 {
@@ -6,7 +7,7 @@ namespace CompanyVers
     {
         private string name;
         private DateTime employmentDate;
-        private int chiefId;
+        private EmployeeWithSubordinates chief;
 
         public string Name
         {
@@ -20,22 +21,21 @@ namespace CompanyVers
             set { employmentDate = value; }
         }
 
-        public int ChiefId
+        public EmployeeWithSubordinates Chief
         {
-            get { return chiefId; }
-            set { chiefId = value; }
-
+            get { return chief; }
+            set { chief = value; }
         }
 
         public EmployeeBase(string name, DateTime employmentDate, EmployeeWithSubordinates chief)
         {
             Name = name;
             EmploymentDate = employmentDate;
+            Chief = chief;
 
             if (chief != null)
             {
-                chief.Subordinates = new System.Collections.Generic.List<EmployeeBase>();
-                chief.Subordinates.Add(this);
+                Chief.Subordinates.Add(this);
             }
         }
 
@@ -56,21 +56,16 @@ namespace CompanyVers
         private int GetExperienceInYears()
         {
             Console.WriteLine("difference " + (DateTime.Now - employmentDate).ToString());
-            Console.WriteLine(Convert.ToInt32((DateTime.Now - employmentDate).TotalDays / 365));
-            return Convert.ToInt32((DateTime.Now - employmentDate).TotalDays / 365);
+            Console.WriteLine("difference in years " + (DateTime.Now - employmentDate).TotalDays.ToString());
+            Console.WriteLine(Convert.ToInt32(Math.Floor((DateTime.Now - employmentDate).TotalDays / 365)));
+            return Convert.ToInt32(Math.Floor((DateTime.Now - employmentDate).TotalDays / 365));
         }
 
         protected virtual double GetSalary()
         {
-            var salary =
+            return
                 GetBaseRate() * (1 + Math.Min(
                     AdditionalPercentRatePerYearsExperience * ExperienceInYears / 100, MaxAdditionalPercentRatePerYearsExperience / 100));
-
-            var i = AdditionalPercentRatePerYearsExperience * GetExperienceInYears();
-
-            Console.WriteLine(salary);
-
-            return salary;
         }
     }
 }

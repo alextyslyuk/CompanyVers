@@ -10,7 +10,7 @@ namespace CompanyVers
     {
         private List<EmployeeBase> subordinates;
 
-        public List<EmployeeBase> Subordinates { get { return subordinates; } set { subordinates = value; } }
+        public List<EmployeeBase> Subordinates { get { return subordinates; } /*set { subordinates = value; }*/ }
 
         protected double AdditionalPercentRatePerSubordinate
             { get { return GetAdditionalPercentRatePerSubordinate(); } }
@@ -25,7 +25,10 @@ namespace CompanyVers
             { get { return GetAllLevelSubordinatesSalarySum(); } }
 
         public EmployeeWithSubordinates(string name, DateTime employmentDate, EmployeeWithSubordinates chief)
-            : base(name, employmentDate, chief) { }
+            : base(name, employmentDate, chief)
+        {
+            subordinates = new List<EmployeeBase>();
+        }
 
         protected double GetDirectSubordinatesSalarySum()
         {
