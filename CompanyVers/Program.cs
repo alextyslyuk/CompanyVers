@@ -11,16 +11,16 @@ namespace CompanyVers
 
         static void Main(string[] args)
         {
-            Manager manager1 = new Manager("Kvitoslav", DateTime.Parse("2013-09-01"), null);
-            EmployeeBase empl1 = new Employee("Oleksandr", DateTime.Parse("2015-05-05"), manager1);
-            EmployeeBase empl2 = new Employee("Volodymyr", DateTime.Parse("2012-11-05"), manager1);
-            EmployeeBase empl3 = new Employee("Roman", DateTime.Parse("2015-01-23"), manager1);
-            EmployeeBase empl4 = new Employee("Andriy", DateTime.Parse("2010-09-27"), manager1);
-            EmployeeBase empl5 = new Employee("Svyatoslav", DateTime.Parse("2017-07-25"), manager1);
             Sale sale = new Sale("Petro", DateTime.Parse("2017-01-12"), null);
+            Manager manager1 = new Manager("Kvitoslav", DateTime.Parse("2013-09-01"), sale);
+            EmployeeBase empl1 = new Employee("Oleksandr", DateTime.Parse("2018-05-05"), manager1);
 
-            Console.WriteLine("Manager1 experience: " + manager1.AdditionalPercentRatePerYearsExperience);
-            Console.WriteLine("Empl2 " + ":" + empl2.ExperienceInYears + " salary " + empl2.Salary);
+            Console.WriteLine("Manager1 additional pecent rate: " + manager1.AdditionalPercentRatePerYearsExperience);
+
+            Console.WriteLine("Manager - experience: " + manager1.GetExperienceInYears(DateTime.Parse("2017-08-15")) + " salary " + manager1.GetSalary(DateTime.Parse("2017-08-15")));
+            Console.WriteLine("Empl1 - experience: " + empl1.GetExperienceInYears(DateTime.Now) + " salary " + empl1.GetSalary(DateTime.Now));
+
+            Console.WriteLine("Sale salary: " + sale.GetSalary(DateTime.Now));
 
             Console.ReadKey();
 

@@ -25,9 +25,9 @@ namespace CompanyVers
         {
             return 1;
         }
-        protected override double GetSalaryRelatedSubordinatesSalarySum()
+        protected override double GetSalaryRelatedSubordinatesSalarySum(DateTime observingDate)
         {
-            return AllLevelSubordinatesSalarySum;
+            return GetAllLevelSubordinatesSalarySum(observingDate);
         }
     }
 }

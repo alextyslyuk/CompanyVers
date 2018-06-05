@@ -43,29 +43,28 @@ namespace CompanyVers
 
         public double MaxAdditionalPercentRatePerYearsExperience { get { return GetMaxAdditionalPercentRatePerYearsExperience(); } }
 
-        public int ExperienceInYears { get { return GetExperienceInYears(); } }
-
-        public double Salary { get { return GetSalary(); } }
-
         protected abstract double GetAdditionalPercentRatePerYearsExperience();
 
         protected abstract double GetMaxAdditionalPercentRatePerYearsExperience();
 
-        protected virtual double GetBaseRate() { return 100; }
+        protected virtual double GetBaseRate() { return 900; }
 
-        private int GetExperienceInYears()
+        public int GetExperienceInYears(DateTime observingDate)
         {
-            Console.WriteLine("difference " + (DateTime.Now - employmentDate).ToString());
-            Console.WriteLine("difference in years " + (DateTime.Now - employmentDate).TotalDays.ToString());
-            Console.WriteLine(Convert.ToInt32(Math.Floor((DateTime.Now - employmentDate).TotalDays / 365)));
-            return Convert.ToInt32(Math.Floor((DateTime.Now - employmentDate).TotalDays / 365));
+            if (observingDate < employmentDate)
+            {
+                return 0;
+            }
+
+            return Convert.ToInt32(Math.Floor((observingDate - employmentDate).TotalDays / 365));
         }
 
-        protected virtual double GetSalary()
+        public virtual double GetSalary(DateTime observingDate)
         {
+            if (this.EmploymentDate > observingDate) return 0;
             return
                 GetBaseRate() * (1 + Math.Min(
-                    AdditionalPercentRatePerYearsExperience * ExperienceInYears / 100, MaxAdditionalPercentRatePerYearsExperience / 100));
+                    AdditionalPercentRatePerYearsExperience * GetExperienceInYears(observingDate), MaxAdditionalPercentRatePerYearsExperience) / 100);
         }
     }
 }

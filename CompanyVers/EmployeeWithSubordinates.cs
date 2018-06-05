@@ -15,14 +15,14 @@ namespace CompanyVers
         protected double AdditionalPercentRatePerSubordinate
             { get { return GetAdditionalPercentRatePerSubordinate(); } }
 
-        protected double SalaryRelatedSubordinatesSalarySum
-            { get { return GetSalaryRelatedSubordinatesSalarySum(); } }
+        //protected double SalaryRelatedSubordinatesSalarySum
+        //    { get { return GetSalaryRelatedSubordinatesSalarySum(); } }
 
-        protected double DirectSubordinatesSalarySum
-            { get { return GetDirectSubordinatesSalarySum(); } }
+        //protected double DirectSubordinatesSalarySum(DateTime observingDate)
+        //    { return GetDirectSubordinatesSalarySum(observingDate); }
 
-        protected double AllLevelSubordinatesSalarySum
-            { get { return GetAllLevelSubordinatesSalarySum(); } }
+        //protected double AllLevelSubordinatesSalarySum
+        //    { get { return GetAllLevelSubordinatesSalarySum(); } }
 
         public EmployeeWithSubordinates(string name, DateTime employmentDate, EmployeeWithSubordinates chief)
             : base(name, employmentDate, chief)
@@ -30,44 +30,49 @@ namespace CompanyVers
             subordinates = new List<EmployeeBase>();
         }
 
-        protected double GetDirectSubordinatesSalarySum()
+        protected double GetDirectSubordinatesSalarySum(DateTime observingDate)
         {
             double wholeSalary = 0.0;
 
             foreach (EmployeeBase empl in subordinates)
             {
-                wholeSalary += empl.Salary;
-            }
-
-            return wholeSalary;
-        }
-
-        protected double GetAllLevelSubordinatesSalarySum()
-        {
-            double wholeSalary = 0.0;
-
-            foreach (EmployeeBase empl in subordinates)
-            {
-                if (empl is EmployeeWithSubordinates)
+                if (empl.EmploymentDate <= observingDate)
                 {
-                    ((EmployeeWithSubordinates)empl).GetAllLevelSubordinatesSalarySum();
-                }
-                else
-                {
-                    wholeSalary += empl.Salary;
+                    wholeSalary += empl.GetSalary(observingDate);
                 }
             }
 
             return wholeSalary;
         }
 
-        protected abstract double GetSalaryRelatedSubordinatesSalarySum();
+        protected double GetAllLevelSubordinatesSalarySum(DateTime observingDate)
+        {
+            double wholeSalary = 0.0;
+
+            foreach (EmployeeBase empl in subordinates)
+            {
+                if (empl.EmploymentDate <= observingDate)
+                {
+                    wholeSalary += empl.GetSalary(observingDate);
+
+                    if (empl is EmployeeWithSubordinates)
+                    {
+                        wholeSalary += ((EmployeeWithSubordinates)empl).GetAllLevelSubordinatesSalarySum(observingDate);
+                    }
+                }
+            }
+
+            return wholeSalary;
+        }
+
+        protected abstract double GetSalaryRelatedSubordinatesSalarySum(DateTime observingDate);
 
         protected abstract double GetAdditionalPercentRatePerSubordinate();
 
-        protected override double GetSalary()
+        public override double GetSalary(DateTime observingDate)
         {
-            return base.GetSalary() + AdditionalPercentRatePerSubordinate * SalaryRelatedSubordinatesSalarySum;
+            return base.GetSalary(observingDate) + 
+                (AdditionalPercentRatePerSubordinate * GetSalaryRelatedSubordinatesSalarySum(observingDate)) / 100;
         }
     }
 }
