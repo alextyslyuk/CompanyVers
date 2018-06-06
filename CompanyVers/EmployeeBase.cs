@@ -47,7 +47,7 @@ namespace CompanyVers
 
         protected abstract double GetMaxAdditionalPercentRatePerYearsExperience();
 
-        protected virtual double GetBaseRate() { return 900; }
+        protected virtual double GetBaseRate() { return 100; }
 
         public int GetExperienceInYears(DateTime observingDate)
         {
